@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap')
+
+@mixin size($w, $h: $w)
+    width: $w
+    height: $h
+@mixin d-flex-c($rc: unset, $jc: center, $ai: center)
+    display: flex
+    flex-direction: $rc
+    justify-content: $jc
+    align-items: $ai
+@mixin transition($value)
+    transition: $value
+    -o-transition: $value
+    -moz-transition: $value
+    -webkit-transition: $value
+@mixin font($fw: 500, $fs: 16px, $lh: 24px)
+    font-weight: $fw
+    font-size: $fs
+    line-height: $lh
+@mixin keyframes($animationName)
+  @keyframes #{$animationName}
+    @content
+  @-o-keyframes #{$animationName}
+    @content
+  @-moz-keyframes #{$animationName}
+    @content
+  @-webkit-keyframes #{$animationName}
+    @content
+%nowrap-ellipsis
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+%fill-available
+    width: fill-available
+    width: -moz-available
+    width: -webkit-fill-available
+
+@media(prefers-reduced-motion: reduce)
+  *, *::before, *::after
+    transition: none !important
+    animation: none !important
+    scroll-behavior: auto !important
+
+:root
+    --mainColor: #FFD43B
+    --color-dark: #212529
+    --font-color-light: #848383
+*, *::before, *::after, p
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+    outline: none
+    -webkit-text-size-adjust: none
+*:focus:not(:focus-visible),
+*::before:focus:not(:focus-visible),
+*::after:focus:not(:focus-visible)
+    outline: none
+*
+    &::-webkit-scrollbar
+        display: none
+    &::placeholder
+        color: var(--font-color-light)
+    &::-moz-placeholder
+        color: var(--font-color-light)
+        opacity: 1
+    &::-webkit-input-placeholder
+        color: var(--font-color-light)
+a
+    cursor: pointer
+    text-decoration: none
+    color: inherit
+    &:hover
+        color: inherit
+button
+    background: transparent
+    border: none
+input
+    outline: none
+    border: none
+body
+    @include d-flex-c
+    font-family: Quicksand, sans-serif
+    overflow: hidden
+    font-weight: 400
+    font-size: 1rem
+    line-height: 1.5
+    width: 100vw
+    height: 100vh
+
+/* NavBar */
+.navbar
+    position: fixed
+    padding: 0
+    inset: 0 0 auto
+    height: 100px
+    z-index: 999
+    .navbar-toggler
+        display: none
+        box-shadow: none
+        i
+            margin: 8px 12px
+            color: #FFFFFF
+            font-size: 28px
+    .nav-navbar
+        list-style: none
+        height: 100%
+        .btn-cls
+            @include d-flex-c
+            @include size(36px)
+            display: none
+            margin: 24px
+            align-self: flex-start
+            cursor: pointer
+            i
+                @include transition(color .25s)
+                opacity: .65
+                font-size: 28px
+                color: #FFFFFF
+            &:hover i
+                opacity: .4
+            &:active i
+                opacity: .85
+        .nav-item
+            text-align: center
+            flex: 1
+            .nav-link
+                position: relative
+                padding: 8px 16px
+                font-weight: 700
+                color: #FFFFFF
+                span
+                    display: none
+                img
+                    @include transition(.25s)
+                    width: calc(25px + 20 * ((100vw - 300px)/ 1000))
+                &:not(.lots)::after
+                    @include transition(transform .25s ease-out)
+                    @include size(60%, 2px)
+                    content: ""
+                    position: absolute
+                    left: 20%
+                    bottom: 0
+                    background: var(--mainColor)
+                    transform: scaleX(0)
+                    transform-origin: bottom right
+                &:hover
+                    &.lots img
+                        filter: drop-shadow(0 0 12px var(--mainColor))
+                        transform: scale(1.15)
+                    &:not(.lots)::after
+                        transform: scaleX(1)
+                        transform-origin: bottom left
+
+/* Header */
+@include keyframes(jittery)
+    5%, 50%
+        transform: scale(1)
+    10%
+        transform: scale(0.9)
+    15%
+        transform: scale(1.15)
+    20%
+        transform: scale(1.15) rotate(-5deg)
+    25%
+        transform: scale(1.15) rotate(5deg)
+    30%
+        transform: scale(1.15) rotate(-3deg)
+    35%
+        transform: scale(1.15) rotate(2deg)
+    40%
+        transform: scale(1.15) rotate(0)
+
+.btn
+    &-jittery
+        animation: jittery 4.75s infinite
+    &-through
+        overflow: hidden
+        &::before
+            @include transition(transform 0.6s cubic-bezier(0.77, 0, 0.175, 1))
+            position: absolute
+            content: ""
+            inset: 0
+            z-index: -1
+            background: var(--mainColor)
+            transform: scaleX(0)
+            transform-origin: right
+        &:hover
+            color: var(--color-dark) !important
+            background: transparent
+            &::before
+                transform: scaleX(1)
+                transform-origin: left
+.header
+    @include size(100%)
+    position: relative
+    text-align: center
+    min-height: 600px
+    color: #FFFFFF
+    // background-image: url(https://images.unsplash.com/photo-1460819739742-50e4486578f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80)
+    // background-size: cover
+    // background-position: center
+    z-index: 998
+    > *
+        position: absolute
+    .overlay
+        inset: 0
+        background-image: radial-gradient(140% 110% at 48% 42%,rgba(33,37,41,.5),rgba(33,37,41,.6),rgba(33,37,41,.7),rgba(33,37,41,.8),rgba(33,37,41,.93),#212529 55%,#212529 200%)
+    .header-content
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        h1
+            margin: 16px 0 12px
+            font-weight: 700
+            font-size: calc(25px + 25 * ((100vw - 300px) / 1000))
+            opacity: .9
+            span
+                color: var(--mainColor)
+        p
+            margin-bottom: 32px
+        button
+            @include transition(all .25s)
+            position: relative
+            margin: 0 18px 16px
+            padding: 12px 32px
+            font-weight: 700
+            color: var(--mainColor)
+            border: .125em solid var(--mainColor)
+            border-radius: .75em
+            &:first-of-type
+                i
+                    margin-right: calc(1rem * 12 / 16)
+            &:last-of-type
+                color: var(--color-dark)
+                background: var(--mainColor)
+                border: 0.125rem solid var(--mainColor)
+                i
+                    margin-left: calc(1rem * 12 / 16)
+
+/* Cursor */
+.cursor
+    @include size(32px)
+    @include transition(all .3s ease-out)
+    position: fixed
+    left: -100px
+    top: 50%
+    border: 3px solid #FFFFFF
+    border-radius: 50%
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.6)
+    transform: translateX(-50%) translateY(-50%)
+    pointer-events: none
+    z-index: 9999
+    &.hover
+        border: none
+        transform: scale(0) translateX(-25%) translateY(-25%)
+        // background: rgba(255, 255, 255, 0.05)
+        // border: none
+        // box-shadow: 0 0 12px rgba(255, 255, 255, 0.15)
+        // transform: scale(1.5) translateX(-25%) translateY(-25%)
+
+/**********/
+    
+@media (max-width: 1199.98px)
+    .cursor
+        display: none
+        
+@media (max-width: 991.98px)
+    .navbar
+        justify-content: flex-end
+        .navbar-toggler
+            display: block
+        .nav-navbar
+            @include transition(.35s)
+            position: fixed
+            flex-direction: column
+            justify-content: flex-start
+            opacity: 0
+            margin: 0
+            padding: 0
+            inset: 0
+            max-width: none
+            background: rgba(0, 0, 0, .85)
+            transform: translateX(100%)
+            &.show, .btn-cls
+                display: flex
+            &.show
+                @include transition(.35s)
+                opacity: 1
+                transform: translateX(0)
+            .nav-item
+                flex: none
+                margin: 12px 0
+                width: 100%
+                .nav-link
+                    width: 100%
+                    img
+                        display: none
+                    span
+                        display: block
+                    &:not(.lots)::after
+                        content: none
+                    &:hover
+                        color: var(--mainColor)
+    
+@media (max-width: 767.98px)
+    .header .header-content button
+        width: 300px
+    
+@media (max-width: 419.98px)
+    .header .header-content button
+        padding: 8px 16px
+        width: 200px
+        animation: none

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>Document processing</title>
+    <link rel="icon" href="images/logo.png" type="admin_images/x-icon">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link href="css/main.min.css" rel="stylesheet">
+    <link href="css/carousel.min.css" rel="stylesheet">
+</head>
+ 
+<body>
+    <nav class="navbar">
+        <button type="button" class="navbar-toggler"><i class="fa-solid fa-bars"></i></button>
+        <ul class="nav-navbar container">
+            <li class="btn-cls"><i class="fa-solid fa-xmark"></i></li>
+            <li class="nav-item"><a class="nav-link ht" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link ht" href="#">Nearby Cuisine</a></li>
+            <li class="nav-item"><a class="nav-link ht lots" href="draw-lots.html"><img alt="" src="images/staff.png" /><span>Draw Lots</span></span></a></li>
+            <li class="nav-item"><a class="nav-link ht" href="#">Setting</a></li>
+            <li class="nav-item"><a class="nav-link ht" href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <header class="header">
+        <div class="C-carousel">
+            <div class="C-slide" style="background-image: url(https://images.unsplash.com/photo-1460819739742-50e4486578f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80);"></div>
+            <div class="C-slide" style="background-image: url(https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);"></div>
+            <div class="C-slide" style="background-image: url(https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80);"></div>
+            <div class="C-slide" style="background-image: url(https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=781&q=80);"></div>
+            <div class="C-slide" style="background-image: url(https://plus.unsplash.com/premium_photo-1663840344630-3f29a10a28f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80);"></div>
+        </div>
+        <div class="overlay"></div>
+        <div class="header-content">
+          <h1>Do you have no idea what to eat for <span>Breakfast?</span></h1>
+          <p><b>"What should I eat today ?"</b> not only serve breakfast, but also lunch and dinner!</p>
+          <!-- <p>Then you really came to the right place! Hurry up and click the button to use our service! We'll give you with <b>Decidophobia</b> a great idea about breakfast. We not only serve breakfast, but also lunch and dinner!</p> -->
+          <button type="button" class="ht btn-through"><i class="fa-solid fa-display"></i>Setting Food Preferences</button>
+          <button type="button" class="ht btn-jittery">Let's Draw Lots<i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </header>
+    <div id="cursor" class="cursor"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/carousel.js"></script>
+</body>
+</html>

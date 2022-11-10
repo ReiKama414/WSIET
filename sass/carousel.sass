@@ -1,0 +1,82 @@
+
+@mixin size($w, $h: $w)
+    width: $w
+    height: $h
+@mixin d-flex-c($rc: unset, $jc: center, $ai: center)
+    display: flex
+    flex-direction: $rc
+    justify-content: $jc
+    align-items: $ai
+
+.C-carousel
+    inset: 0
+    background: #212121
+    
+.C-track 
+    opacity: 1
+    transition: all .4s ease
+    &--reinit
+        opacity: 0
+
+.C-slide
+    @include size(100vw, 100vh)
+    @include d-flex-c(column)
+    flex: 1 1 auto
+    background-size: cover
+    background-position: center
+    .C-carousel.initialized &
+        border-radius: 100vw
+        transform: scale(0.5) skew(-5deg) rotate(0)
+        transition: all 700ms ease
+        &.active
+            border-radius: 0
+            transform: scale(1) skew(0) rotate(0)
+
+.C-navigation
+    position: absolute
+    right: 20px
+    top: 50%
+    width: 20px
+    transform: translateY(-50%)
+    z-index: 2
+    .C-navigation__dot
+        @include size(.75rem)
+        display: inline-block
+        margin: 4px
+        background: rgba(255, 255, 255, .5)
+        border-radius: 50%
+        transform: scale(.95)
+        cursor: pointer
+        &.active 
+            background: var(--mainColor)
+            transform: scale(1.55)
+
+.C-carousel-navigation-button
+    position: absolute
+    padding: 4px
+    opacity: .5
+    top: auto
+    bottom: 10px
+    left: 50px
+    font-size: 28px
+    color: #FFFFFF
+    box-shadow: none
+    transition: all .3s ease
+    cursor: pointer
+    z-index: 2
+    &--next
+        left: 47px
+        &::after
+            content: "\f138"
+            font-family: "Font Awesome 6 Free"
+            font-weight: 900
+    &--prev
+        transform: translateX(calc(-100% - 5px))
+        &::after
+            content: "\f137"
+            font-family: "Font Awesome 6 Free"
+            font-weight: 900
+    &:hover
+        opacity: .85
+    &:active
+        opacity: 1

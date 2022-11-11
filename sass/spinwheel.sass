@@ -1,0 +1,89 @@
+
+@mixin size($w, $h: $w)
+    width: $w
+    height: $h
+@mixin d-flex-c($rc: unset, $jc: center, $ai: center)
+    display: flex
+    flex-direction: $rc
+    justify-content: $jc
+    align-items: $ai
+@mixin transition($value)
+    transition: $value
+    -o-transition: $value
+    -moz-transition: $value
+    -webkit-transition: $value
+@mixin keyframes($animationName)
+    @keyframes #{$animationName}
+        @content
+    @-o-keyframes #{$animationName}
+        @content
+    @-moz-keyframes #{$animationName}
+        @content
+    @-webkit-keyframes #{$animationName}
+        @content
+@mixin font($fw: 500, $fs: 16px, $lh: 24px)
+    font-weight: $fw
+    font-size: $fs
+    line-height: $lh
+    
+.inner
+    @include d-flex-c
+    position: absolute
+    top: 110px
+    right: 0
+    bottom: 0
+    left: 0
+    z-index: 999
+    > *
+        @include d-flex-c(column)
+        padding: 16px
+        // flex: 1 1 auto
+        height: 100%
+    .SpinWheelWrapper
+        width: 60%
+        .SpinWheel
+            position: relative
+            aspect-ratio: 1/1
+            width: 100%
+            max-width: 650px
+            background: #E0E6E3
+            border: 7px outset #E0E6E3
+            border-radius: 50%
+            box-shadow: 0 0 8px rgba(0, 0, 0, .75)
+            &::after
+                content: ""
+                position: absolute
+                left: 50%
+                bottom: 50%
+                transform: translateX(-50%)
+                border-left: 16px solid transparent
+                border-right: 16px solid transparent
+                border-bottom: 68px solid #222222
+                z-index: 2
+            .wheel
+                @include transition(transform 4.2s ease-out) // bind spin() => SpinLength
+                .SWItem
+                    font-weight: bold
+                    fill: #252525
+                    z-index: 2
+    .ToolsBar
+        width: 40%
+        *
+            color: #FFFFFF
+        button
+            @include font(700, 24px)
+            margin-bottom: 24px
+            padding: 8px 16px
+            border: 2px solid #FFFFFF
+            border-radius: 20px
+            letter-spacing: 1px
+            text-transform: uppercase
+        textarea
+            @include size(100%, 480px)
+            @include font(500, 18px)
+            padding: 1rem
+            width: 100%
+            max-width: 500px
+            background: rgba(0, 0, 0, .45)
+            border-radius: 12px
+            resize: none

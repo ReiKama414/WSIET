@@ -46,25 +46,31 @@
             aspect-ratio: 1/1
             width: 100%
             max-width: 650px
-            background: #E0E6E3
-            border: 7px outset #E0E6E3
+            background: var(--border-color)
+            border: 7px outset var(--border-color)
             border-radius: 50%
             box-shadow: 0 0 8px rgba(0, 0, 0, .75)
-            &::after
+            &::before, &::after
                 content: ""
                 position: absolute
                 left: 50%
-                bottom: 50%
                 transform: translateX(-50%)
-                border-left: 16px solid transparent
-                border-right: 16px solid transparent
-                border-bottom: 68px solid #222222
                 z-index: 2
+                border-left: 25px solid transparent
+                border-right: 25px solid transparent
+                border-radius: 12px
+                filter: drop-shadow(0px 3px 8px rgba(0, 0, 0, 0.24))
+            &::before
+                top: -18px
+                border-top: 50px solid #FFFFFF
+            &::after
+                top: -32px
+                border-top: 50px solid var(--border-color)
             .wheel
                 @include transition(transform 4.2s ease-out) // bind spin() => SpinLength
                 .SWItem
                     font-weight: bold
-                    fill: #252525
+                    fill: #FFF
                     z-index: 2
     .ToolsBar
         width: 40%

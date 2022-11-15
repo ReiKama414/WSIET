@@ -35,9 +35,10 @@
     </header>
 
 
-    <div id="app" class="inner container">
+    <div id="app" class="inner container ht">
         <div class="SpinWheelWrapper">
-            <div class="SpinWheel">
+            <div class="hint" @click="spin">Click Wheel !</div>
+            <div class="SpinWheel swc" @click="spin">
                 <svg class="wheel" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" :transform="`rotate(${currentDeg})`">
                     <defs>
                         <circle id="graph" cx="16" cy="16" r="15.9154943092" transform="rotate(-90 16 16)" />
@@ -55,10 +56,34 @@
                 </svg>
             </div>
         </div>
-        <div class="ToolsBar">
-            <button type="button" @click="spin">Spin</button>
-            <textarea v-model="itemsList"></textarea>
-            <div>{{ answer }}</div>
+        <button class="Togglebar" @click="togglebar"><i class="fa-regular fa-eye-slash me-2"></i>Bar</button>
+        <div class="ToolsBar swc">
+            <div class="d-f d-fjcsb w-100 mb-3 d-fai">
+                <button type="button" @click="spin" class="c-wb swc">Spin</button>
+                <div class="d-f d-fai">
+                    <i class="fa-regular fa-eye me-3" style="font-size: 24px; cursor: pointer" @click="togglebar"></i>
+                    <div class="dropdown dot">
+                        <button type="button" class="dropdown-toggle c-bw swc" data-bs-toggle="dropdown" aria-expanded="false">···</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" @click="reset1">Reset List</a></li>
+                            <li><a class="dropdown-item" href="#" @click="reset2">Reset Wheel</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="d-f d-fjcsb w-100 mb-3">
+                <div id="m-slct" class="dropdown d-flex d-f1 me-3" style="width: 0;">
+                    <button type="button" class="dropdown-toggle w-100 c-bw swc" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ selected }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item" v-for="(fdd, index) in fddList" :key="index" @click="switchSelect($event)">{{ fdd }}</li>
+                    </ul>
+                </div>
+                <button type="button" class="c-wb swc" @click="addoption"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <textarea v-model="itemsList" class="swc"></textarea>
+            <!-- <div>{{ answer }}</div> -->
         </div>
     </div>
 

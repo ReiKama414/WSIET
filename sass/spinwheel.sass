@@ -25,31 +25,85 @@
     font-weight: $fw
     font-size: $fs
     line-height: $lh
+@mixin btmixc($c1, $c2)
+    color: $c1
+    background: $c2
+    border: 2px solid $c1
+    & > *
+        color: $c1
+
+@include keyframes(zoom)
+    0%
+        transform: scale(1)
+    100%
+        transform: scale(1.2)
+body
+    height: auto
+    .header
+        min-height: 100vh
     
 .inner
     @include d-flex-c
     position: absolute
-    top: 110px
-    right: 0
-    bottom: 0
-    left: 0
+    flex-wrap: wrap
+    overflow-y: auto 
+    overflow-x: hidden
+    top: 134px
+    right: 16px
+    bottom: 24px
+    left: 16px
+    background: #35353594
+    border-radius: 24px
+    box-shadow: 0 0 0 8px rgb(0 0 0 / 60%), 0 0 0 16px rgb(255 255 255 / 10%)
     z-index: 999
-    > *
-        @include d-flex-c(column)
-        padding: 16px
-        // flex: 1 1 auto
-        height: 100%
+    &::-webkit-scrollbar
+        width: 32px
+    &::-webkit-scrollbar-thumb
+        background: var(--mainColor)
+        background-clip: padding-box
+        border: 14px solid rgba(0,0,0,0)
+        border-radius: 20px
+    &.hide
+        .SpinWheelWrapper
+            min-width: 100%
+        .ToolsBar
+            @include transition(all .5s)
+            padding: 0
+            opacity: 0
+            max-width: 0
+            transform: translateX(50vw)
+    &:not(.hide)
+        .Togglebar
+            display: none
+    .SpinWheelWrapper, .ToolsBar
+        @include d-flex-c(column, flex-start)
+        padding: 38px 16px 16px
+        flex: 1
     .SpinWheelWrapper
-        width: 60%
+        position: relative
+        .hint
+            @include font(700, 36px)
+            position: absolute
+            padding: 24px 48px
+            top: 43.5%
+            opacity: .75
+            color: #FFFFFF
+            background: black
+            border-radius: 12px
+            z-index: 9999
+            cursor: pointer
+            animation: zoom .75s linear alternate infinite
         .SpinWheel
             position: relative
+            margin-top: 25px
             aspect-ratio: 1/1
             width: 100%
-            max-width: 650px
+            max-width: 600px
             background: var(--border-color)
             border: 7px outset var(--border-color)
             border-radius: 50%
             box-shadow: 0 0 8px rgba(0, 0, 0, .75)
+            cursor: pointer
             &::before, &::after
                 content: ""
                 position: absolute
@@ -72,18 +126,80 @@
                     font-weight: bold
                     fill: #FFF
                     z-index: 2
+    .Togglebar
+        @include font(700, 28px)
+        @include size(max-content)
+        position: absolute
+        flex-direction: row
+        padding: 8px 16px
+        top: 100px
+        right: -39px
+        background: var(--mainColor)
+        border-radius: 12px 12px 0 0
+        transform: rotate(270deg)
+        z-index: 2
     .ToolsBar
-        width: 40%
+        @include transition(all .5s)
+        max-width: 518px
+        min-height: 600px
         *
             color: #FFFFFF
         button
             @include font(700, 24px)
-            margin-bottom: 24px
-            padding: 8px 16px
+            padding: 12px 16px
             border: 2px solid #FFFFFF
             border-radius: 20px
             letter-spacing: 1px
             text-transform: uppercase
+        .c-bw
+            @include btmixc(var(--color-dark), var(--mainColor))
+        .c-wb
+            @include btmixc(var(--mainColor) , var(--color-dark))
+        .dropdown
+            .dropdown-menu
+                @include transition(transform .15s ease-in-out)
+                padding-top: 0
+                padding-bottom: 0
+                overflow-y: auto
+                width: 100%
+                max-height: 20vw
+                background: rgba(0, 0, 0, .95)
+                transform: translate(0px, 24px)
+                &::-webkit-scrollbar-thumb
+                    border: 5px solid transparent
+                .dropdown-item
+                    font-weight: 900
+                    cursor: pointer
+                    &:focus, &:hover
+                        color: #000
+                        background: var(--mainColor)
+            &:not(.dot) button
+                position: relative
+                display: -webkit-box
+                -webkit-box-orient: vertical
+                overflow: hidden
+                text-overflow: ellipsis
+                padding: 12px 48px 12px 24px
+                &::after
+                    position: absolute
+                    font-family: "Font Awesome 6 Free"
+                    font-weight: 900
+                    content: "\f106"
+                    margin-left: 0
+                    vertical-align: 0
+                    right: 16px
+                    border: none
+                &.show::after
+                    content: "\f107"
+            &.dot button
+                padding: 4px 5px 4px 8px
+                aspect-ratio: 1/1
+                border-radius: 50%
+                letter-spacing: 3px
+                &::after
+                    margin-left: 0
+                    vertical-align: 0
+                    border: none
         textarea
             @include size(100%, 480px)
             @include font(500, 18px)
@@ -93,3 +209,44 @@
             background: rgba(0, 0, 0, .45)
             border-radius: 12px
             resize: none
+    .swc.work
+        &:not(.ToolsBar)
+            pointer-events: none
+        &.ToolsBar
+            cursor: not-allowed
+
+@media (max-width: 1199.98px)
+    .inner
+        .SpinWheelWrapper, .ToolsBar
+            flex: none
+            width: 100%
+        .ToolsBar > div > div > i, .Togglebar
+            display: none
+        &.hide
+            .ToolsBar
+                opacity: 1
+                padding: 48px 16px
+                max-width: 518px
+                transform: none
+
+@media (max-width: 767.98px)
+    .inner .ToolsBar
+        button
+            font-size: 18px
+        textarea
+            font-size: 16px
+
+@media (max-width: 575.98px)
+    .inner
+        top: 75px
+        left: 0
+        right: 0
+        background: none
+        box-shadow: none
+        &::-webkit-scrollbar
+            display: none
+        .ToolsBar
+            button
+                font-size: 16px
+            textarea
+                font-size: 14px

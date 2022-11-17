@@ -64,7 +64,7 @@ $(function () {
                 cftastt: true,
                 hide1: false,
                 SSRpd: "",
-                imgNum: "2",
+                imgNum: `${Math.floor((Math.random() * 56) + 1)}`,
             };
         },
         methods: {
@@ -79,10 +79,11 @@ $(function () {
                 const SpinLength = 4200;
                 const startDeg = Number(this.currentDeg) || 500;
                 const ConfettiLength = Confettidata.length;
-                this.imgNum = `${Math.floor((Math.random() * 55) + 1)}`;
 
                 if (document.querySelector(".hint")) {
                     document.querySelector(".hint").remove();
+                } else {
+                    this.imgNum = `${Math.floor((Math.random() * 56) + 1)}`;
                 };
 
                 this.work = true;
@@ -153,7 +154,7 @@ $(function () {
                 if ((this.currentDeg % (360 / this.items.length)) === 0) {
                     this.SSRpd = "UR";
                     return missmeg;
-                }else {
+                } else {
                     this.SSRpd = "SSR";
                 };
                 return itemsListr[Math.trunc((this.currentDeg / (360 / this.items.length)) % this.items.length)];

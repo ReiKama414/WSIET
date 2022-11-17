@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <title>Document processing</title>
+    <title>Kama</title>
     <link rel="icon" href="images/logo.png" type="admin_images/x-icon">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -18,77 +18,151 @@
 </head>
  
 <body>
-    <nav class="navbar">
-        <button type="button" class="navbar-toggler"><i class="fa-solid fa-bars"></i></button>
-        <ul class="nav-navbar container">
-            <li class="btn-cls"><i class="fa-solid fa-xmark"></i></li>
-            <li class="nav-item"><a class="nav-link ht" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link ht" href="#">Nearby Cuisine</a></li>
-            <li class="nav-item"><a class="nav-link ht lots" href="#"><img alt="" src="images/staff.png" /><span>Draw Lots</span></span></a></li>
-            <li class="nav-item"><a class="nav-link ht" href="#">Setting</a></li>
-            <li class="nav-item"><a class="nav-link ht" href="#">Contact</a></li>
-        </ul>
-    </nav>
-
-    <header class="header" style="background-image: url(https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);">
-        <div class="overlay"></div>
-    </header>
-
-
-    <div id="app" class="inner container ht">
-        <div class="SpinWheelWrapper">
-            <div class="hint" @click="spin">Click Wheel !</div>
-            <div class="SpinWheel swc" @click="spin">
-                <svg class="wheel" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" :transform="`rotate(${currentDeg})`">
-                    <defs>
-                        <circle id="graph" cx="16" cy="16" r="15.9154943092" transform="rotate(-90 16 16)" />
-                        <mask id="clip">
-                            <use xlink:href="#graph" fill="#FFF" />
-                        </mask>
-                    </defs>
-                    <g mask="url(#clip)" stroke-width="32">
-                        <template v-for="(item, index) in items">
-                            <use xlink:href="#graph" fill="none" :stroke="color(index)" :stroke-dasharray="`0 ${(size*index)} ${size} 100`" />
-                            <text class="SWItem" dy=".60" x="1" y="16" font-size="1.25" :transform="`rotate(${textPercentage(index)}, 16, 16)`">{{item}}</text>
-                        </template>
-                    </g>
-                    <circle r=".6" cx="16" cy="16" fill="#222222"/>
-                </svg>
+    <section class="loader">
+        <div class="LoadingIconWrapper">
+            <div class="LIW">
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
         </div>
-        <button class="Togglebar" @click="togglebar"><i class="fa-regular fa-eye-slash me-2"></i>Bar</button>
-        <div class="ToolsBar swc">
-            <div class="d-f d-fjcsb w-100 mb-3 d-fai">
-                <button type="button" @click="spin" class="c-wb swc">Spin</button>
-                <div class="d-f d-fai">
-                    <i class="fa-regular fa-eye me-3" style="font-size: 24px; cursor: pointer" @click="togglebar"></i>
-                    <div class="dropdown dot">
-                        <button type="button" class="dropdown-toggle c-bw swc" data-bs-toggle="dropdown" aria-expanded="false">···</button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" @click="reset1">Reset List</a></li>
-                            <li><a class="dropdown-item" href="#" @click="reset2">Reset Wheel</a></li>
-                        </ul>
+        <div class="LoadingTextWrapper">
+            <div class="dot">L</div>
+            <div class="dot">O</div>
+            <div class="dot">A</div>
+            <div class="dot">D</div>
+            <div class="dot">I</div>
+            <div class="dot">N</div>
+            <div class="dot">G</div>
+            <span class="text">Please Wait...</span>
+        </div>
+    </section>
+    <script>
+        let loading = document.querySelector(".loader");
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                loading.classList.add("hidden");
+            }, 1200);
+        });
+    </script>
+
+    <div id="app" style="width: 100%; height: 100%;">
+        <nav class="navbar">
+            <button type="button" class="navbar-toggler"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-navbar container">
+                <li class="btn-cls"><i class="fa-solid fa-xmark"></i></li>
+                <li class="nav-item"><a class="nav-link ht" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link ht" href="#">Nearby Cuisine</a></li>
+                <li class="nav-item"><a class="nav-link ht lots" href="#"><img alt="" src="images/staff.png" /><span>Draw Lots</span></span></a></li>
+                <li class="nav-item"><a class="nav-link ht" href="#">Setting</a></li>
+                <li class="nav-item"><a class="nav-link ht" href="#">Contact</a></li>
+            </ul>
+        </nav>
+    
+        <header class="header" style="background-image: url(https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);">
+            <div class="overlay"></div>
+        </header>
+    
+        <div class="inner container ht" :class="{hide: hide1}">
+            <div class="SpinWheelWrapper">
+                <div class="hint" @click="spin">Click Wheel !</div>
+                <div class="SpinWheel swc" :class="{work: work}" @click="spin">
+                    <svg class="wheel" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" :transform="`rotate(${currentDeg})`">
+                        <defs>
+                            <circle id="graph" cx="16" cy="16" r="15.9154943092" transform="rotate(-90 16 16)" />
+                            <mask id="clip">
+                                <use xlink:href="#graph" fill="#FFF" />
+                            </mask>
+                        </defs>
+                        <g mask="url(#clip)" stroke-width="32">
+                            <template v-for="(item, index) in items">
+                                <use xlink:href="#graph" fill="none" :stroke="color(index)" :stroke-dasharray="`0 ${(size*index)} ${size} 100`" />
+                                <text class="SWItem" dy=".60" x="1" y="16" font-size="1" :transform="`rotate(${textPercentage(index)}, 16, 16)`">{{item}}</text>
+                            </template>
+                        </g>
+                        <circle r=".6" cx="16" cy="16" fill="#222222"/>
+                    </svg>
+                </div>
+            </div>
+            <button class="Togglebar" @click="togglebar"><i class="fa-regular fa-eye-slash me-2"></i>Bar</button>
+            <div class="ToolsBar swc" :class="{work: work}">
+                <div class="d-f d-fjcsb w-100 mb-3 d-fai">
+                    <button type="button" @click="spin" class="c-wb swc" :class="{work: work}">Spin</button>
+                    <div class="d-f d-fai">
+                        <i class="fa-regular fa-eye me-3" style="font-size: 24px; cursor: pointer" @click="togglebar"></i>
+                        <div class="dropdown dot">
+                            <button type="button" class="dropdown-toggle c-bw swc" :class="{work: work}" data-bs-toggle="dropdown" aria-expanded="false">···</button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" @click="reset1">Reset List</a></li>
+                                <li><a class="dropdown-item" href="#" @click="reset2">Reset Wheel</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-f d-fjcsb w-100 mb-3">
-                <div id="m-slct" class="dropdown d-flex d-f1 me-3" style="width: 0;">
-                    <button type="button" class="dropdown-toggle w-100 c-bw swc" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ selected }}
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item" v-for="(fdd, index) in fddList" :key="index" @click="switchSelect($event)">{{ fdd }}</li>
-                    </ul>
+                <div class="d-f d-fjcsb w-100 mb-3">
+                    <div id="m-slct" class="dropdown d-flex d-f1 me-3" style="width: 0;">
+                        <button type="button" class="dropdown-toggle w-100 c-bw swc" :class="{work: work}" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ selected }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" v-for="(fdd, index) in fddList" :key="index" @click="switchSelect($event)">{{ fdd }}</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="c-wb swc" :class="{work: work}" @click="addoption"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <button type="button" class="c-wb swc" @click="addoption"><i class="fa-solid fa-plus"></i></button>
+                <textarea v-model="itemsList" class="swc" :class="{work: work}"></textarea>
             </div>
-            <textarea v-model="itemsList" class="swc"></textarea>
-            <!-- <div>{{ answer }}</div> -->
         </div>
+    
+        <div id="cursor" class="cursor"></div>
+        <img :src="imgUrl" />
+        <div class="ConfettiArea" :class="{hide: cftastt}">
+            <div class="wrapper">
+                <div class="card" style="background-image: url(images/cards/image0.jpg)" >
+                    <img alt="" :src="`images/cards/image${imgNum}.jpg`" loading="lazy">
+                    <div class="logo">Kama</div>
+                    <div class="level">{{SSRpd}}</div>
+                    <div class="info">
+                        <h3 class="title">{{answer}}</h3>
+                        <div class="stargroup">
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                            <span class="fas fa-star"></span>
+                        </div>
+                        <p class="date">{{ time }}</p>
+                    </div>
+                </div>
+                <div class="d-f mt-3">
+                    <button type="button" @click="done">Done</button>
+                    <button type="button" @click="copy" onclick="copyalert()"><i class="fa-regular fa-copy"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div id="Copyalt">Copied Successfully！</div>
     </div>
 
-    <div id="cursor" class="cursor"></div>
+    <script>
+        function copyalert() {
+            var x = document.getElementById("Copyalt");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
 
+    <style class="hover"></style>
+    <style class="spkimg"></style>
+    <script src="js/js-confetti.browser.js"></script>
     <script src="js/main.js"></script>
     <script src="js/spinwheel.js"></script>
 </body>

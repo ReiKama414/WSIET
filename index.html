@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <title>Document processing</title>
+    <title>Kama</title>
     <link rel="icon" href="images/logo.png" type="admin_images/x-icon">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -17,6 +17,41 @@
 </head>
  
 <body>
+    <section class="loader">
+        <div class="LoadingIconWrapper">
+            <div class="LIW">
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div class="LoadingTextWrapper">
+            <div class="dot">L</div>
+            <div class="dot">O</div>
+            <div class="dot">A</div>
+            <div class="dot">D</div>
+            <div class="dot">I</div>
+            <div class="dot">N</div>
+            <div class="dot">G</div>
+            <span class="text">Please Wait...</span>
+        </div>
+    </section>
+    <script>
+        let loading = document.querySelector(".loader");
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                loading.classList.add("hidden");
+            }, 1500);
+        });
+    </script>
+
     <nav class="navbar">
         <button type="button" class="navbar-toggler"><i class="fa-solid fa-bars"></i></button>
         <ul class="nav-navbar container">

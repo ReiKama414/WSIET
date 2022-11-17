@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Sonsie+One&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Oriya:wght@500&display=swap')
+@font-face
+    font-family: 'Rage Italic'
+    font-style: normal
+    font-weight: normal
+    src: local('Rage Italic'), url('\fonts\RAGE_1.woff') format('woff')
+
+:root
+    --color1: #01ECE5
+    --color2: #FF0497
+    --dt-75: .75s
 
 @mixin size($w, $h: $w)
     width: $w
@@ -37,6 +49,28 @@
         transform: scale(1)
     100%
         transform: scale(1.2)
+
+@include keyframes(zoom2)
+    0%
+        transform: scale(.45)
+    100%
+        transform: scale(1)
+
+@keyframes fadein
+    from
+        bottom: -30px
+        opacity: 0
+    to
+        bottom: 0
+        opacity: 1
+@keyframes fadeout
+    from
+        bottom: 0
+        opacity: 1
+    to
+        bottom: -30px
+        opacity: 0
+
 body
     height: auto
     .header
@@ -45,7 +79,6 @@ body
 .inner
     @include d-flex-c
     position: absolute
-    flex-wrap: wrap
     overflow-y: auto 
     overflow-x: hidden
     top: 134px
@@ -93,7 +126,7 @@ body
             border-radius: 12px
             z-index: 9999
             cursor: pointer
-            animation: zoom .75s linear alternate infinite
+            animation: zoom var(--dt-75) linear alternate infinite
         .SpinWheel
             position: relative
             margin-top: 25px
@@ -216,8 +249,138 @@ body
         &.ToolsBar
             cursor: not-allowed
 
+.ConfettiArea
+    @include d-flex-c
+    position: fixed
+    inset: 0
+    background: #10101080
+    z-index: 10000
+    &.hide
+        display: none
+    &:not(.hide) .wrapper
+        animation: zoom2 var(--dt-75)
+    .wrapper
+        @include size(100%, 600px)
+        max-width: 400px
+        perspective: 2000px
+    .card
+        position: relative
+        overflow: hidden
+        aspect-ratio: 6/9
+        margin: 12px
+        width: calc(100% - 24px)
+        border-radius: 12px
+        background-color: black
+        background-size: cover
+        background-repeat: no-repeat
+        background-position: 0 0
+        box-shadow: -13px -13px 13px -15px var(--color1), 13px 13px 13px -15px var(--color2), 0 0 4px 2px rgba(255,255,255,0.5), 0 35px 25px -15px rgba(0, 0, 0, 0.3)
+        &::before, &::after
+            content: ""
+            inset: 0
+            mix-blend-mode: screen
+            background-repeat: no-repeat
+            z-index: 2
+        &::before
+            background-image: linear-gradient(115deg, transparent 0%, var(--color1) 30%, transparent 47.5%, transparent 52.5%, var(--color2) 70%, transparent 100%)
+            background-size: 300% 300%
+            background-position: 50% 50%
+        &::after
+            @include transition(filter .5s)
+            // background-image: url('/images/sparkles' + '2' + '.gif')
+            background-size: 150%
+            background-position: center
+            filter: brightness(.5)
+        > *, &::before, &::after
+            position: absolute
+        img
+            @include size(100%)
+            object-fit: cover
+            object-position: 0 0
+        .logo
+            @include font(500, 24px)
+            top: 8px
+            left: 8px
+            font-family: 'Rage Italic'
+            color: #000
+        .level
+            @include font(500, 5.8rem, 1)
+            font-family: 'Sonsie One'
+            top: 12px
+            right: 12px
+            letter-spacing: -.32rem
+            background: linear-gradient(to bottom right, #C94A4A 30%, #F2C14E 70%, #4D9078)
+            -webkit-background-clip: text
+            -webkit-text-stroke: 2px #FFFFFF
+            -webkit-text-fill-color: transparent
+        .info
+            padding: 0 1.17rem
+            inset: auto 0 0
+            .title
+                @include font(700, 2.8rem, 1.3)
+                font-family: 'Noto Serif Oriya'
+                margin-bottom: .75rem
+                text-transform: capitalize
+                background: linear-gradient(to bottom right, #FFC53F 33%, #FFF829 66%, #FF9F29 100%)
+                -webkit-background-clip: text
+                -webkit-text-stroke: .1px #FFFFFF
+                -webkit-text-fill-color: transparent
+            .stargroup
+                margin-bottom: .4rem
+                span
+                    margin-right: .25rem
+                    font-size: 2.8rem
+                    line-height: 1.2
+                    background-color: #FFA16d
+                    background-image: linear-gradient(30deg, #FFA16d 0%, #FFE321 74%, #FFF 100%)
+                    -webkit-background-clip: text
+                    -webkit-text-stroke: .1px #FFFFFF
+                    -webkit-text-fill-color: transparent
+            .date
+                text-align: center
+                color: #101010
+                -webkit-text-stroke: .1px #FFFFFF
+    button
+        @include transition(.25s)
+        @include font(600, 1.4rem, 1)
+        opacity: .65
+        margin: 0 12px
+        padding: 8px 12px
+        width: 100%
+        background: var(--mainColor)
+        border-radius: 12px
+        z-index: 2
+        &:hover
+            opacity: 1
+            box-shadow: var(--mainColor) 0px 0px 0px 2px
+        &:last-of-type
+            @include size(48px)
+            background: #E6E6E6
+            border-radius: 50%
+            &:hover
+                box-shadow: #E6E6E6 0px 0px 0px 2px
+#Copyalt
+    @include font(700, 1.6rem, 1)
+    position: fixed
+    visibility: hidden
+    text-align: center
+    margin: auto
+    padding: 16px 32px
+    left: 0
+    right: 0
+    bottom: 0
+    color: #FFF
+    background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%)
+    border-radius: 12px 12px 0 0
+    z-index: 10001
+    &.show
+        visibility: visible
+        animation: fadein 0.5s, fadeout 0.5s 2.5s
+
+
 @media (max-width: 1199.98px)
     .inner
+        flex-wrap: wrap
         .SpinWheelWrapper, .ToolsBar
             flex: none
             width: 100%
@@ -232,7 +395,7 @@ body
 
 @media (max-width: 767.98px)
     .inner .ToolsBar
-        button
+        buttonfont-size
             font-size: 18px
         textarea
             font-size: 16px
@@ -251,3 +414,16 @@ body
                 font-size: 16px
             textarea
                 font-size: 14px
+
+@media (max-width: 399.98px)
+    .ConfettiArea .card
+        .logo
+            font-size: 20px
+        .level
+            font-size: 3.6rem
+        .info
+            .title
+                margin-bottom: .2rem
+                font-size: 2rem
+            .stargroup span
+                font-size: 1.7rem

@@ -15,7 +15,7 @@ $(function () {
     };
 
     // Nav
-    $('.navbar-toggler, .btn-cls').click(function () {
+    $(document).on('click', '.navbar-toggler, .btn-cls', function () {
         $('.nav-navbar').toggleClass('show');
     });
     /*****/

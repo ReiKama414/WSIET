@@ -19,12 +19,12 @@ $(function () {
     var missmeg = "It's so Amazing! You Miss :)";
     var Confettidata = [ {}, {
             confettiRadius: 12,
-            confettiesNumber: 100
+            confettiNumber: 100
         },
         {
             emojis: ['🍀'],
             emojiSize: 40,
-            confettiNumber: 77,
+            confettiNumber: 57,
         },
         {
             emojis: ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼‍', '🐻', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐺', '🐗', '🦓', '🐲', '🐴', '🦄', '🦝'],

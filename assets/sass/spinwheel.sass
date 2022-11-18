@@ -2,9 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Oriya:wght@500&display=swap')
 @font-face
     font-family: 'Rage Italic'
-    font-style: normal
-    font-weight: normal
-    src: local('Rage Italic'), url('\fonts\RAGE_1.woff') format('woff')
+    src: local('Rage Italic'), url('assets\fonts\RAGE.woff') format('woff')
 
 :root
     --color1: #01ECE5
@@ -77,25 +75,6 @@ body
         min-height: 100vh
     
 .inner
-    @include d-flex-c
-    position: absolute
-    overflow-y: auto 
-    overflow-x: hidden
-    top: 134px
-    right: 16px
-    bottom: 24px
-    left: 16px
-    background: #35353594
-    border-radius: 24px
-    box-shadow: 0 0 0 8px rgb(0 0 0 / 60%), 0 0 0 16px rgb(255 255 255 / 10%)
-    z-index: 999
-    &::-webkit-scrollbar
-        width: 32px
-    &::-webkit-scrollbar-thumb
-        background: var(--mainColor)
-        background-clip: padding-box
-        border: 14px solid rgba(0,0,0,0)
-        border-radius: 20px
     &.hide
         .SpinWheelWrapper
             min-width: 100%

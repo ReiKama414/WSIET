@@ -43,11 +43,11 @@ $(function () {
         }, {
             confettiColors: ["#FFBE0B", "#FB5607", "#FF006E", "#8338EC", "#3A86FF"],
             confettiRadius: 10,
-            confettiesNumber: 150
+            confettiNumber: 150
         }, {
             confettiColors: ["#9B5DE5", "#F15BB5", "#FEE440", "#00BBF9", "#00F5D4"],
             confettiRadius: 6,
-            confettiesNumber: 300
+            confettiNumber: 300
         },
     ];
     const jsConfetti = new JSConfetti({})
@@ -87,7 +87,7 @@ $(function () {
                 };
 
                 this.work = true;
-                document.querySelector('.spkimg').innerHTML = `.ConfettiArea .card::after{ background-image: url('/images/sparkles/sparkles${Math.floor((Math.random() * 5) + 1)}.gif') }`;
+                document.querySelector('.spkimg').innerHTML = `.ConfettiArea .card::after{ background-image: url('assets/images/sparkles/sparkles${Math.floor((Math.random() * 5) + 1)}.gif') }`;
                 setTimeout(() => {
                     this.timeFormate(new Date());
                     this.work = false;

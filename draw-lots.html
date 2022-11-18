@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <title>Kama</title>
-    <link rel="icon" href="images/logo.png" type="admin_images/x-icon">
+    <link rel="icon" href="assets/images/logo.png" type="admin_images/x-icon">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -13,57 +13,22 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
-    <link href="css/main.min.css" rel="stylesheet">
-    <link href="css/spinwheel.min.css" rel="stylesheet">
+    <link href="assets/css/main.min.css" rel="stylesheet">
+    <link href="assets/css/spinwheel.min.css" rel="stylesheet">
 </head>
  
 <body>
     <section class="loader">
-        <div class="LoadingIconWrapper">
-            <div class="LIW">
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-        </div>
-        <div class="LoadingTextWrapper">
-            <div class="dot">L</div>
-            <div class="dot">O</div>
-            <div class="dot">A</div>
-            <div class="dot">D</div>
-            <div class="dot">I</div>
-            <div class="dot">N</div>
-            <div class="dot">G</div>
-            <span class="text">Please Wait...</span>
-        </div>
+        <script>
+            $(".loader").load("--loader.html");
+        </script>
     </section>
-    <script>
-        let loading = document.querySelector(".loader");
-        window.addEventListener("load", function () {
-            setTimeout(function () {
-                loading.classList.add("hidden");
-            }, 1200);
-        });
-    </script>
 
     <div id="app" style="width: 100%; height: 100%;">
         <nav class="navbar">
-            <button type="button" class="navbar-toggler"><i class="fa-solid fa-bars"></i></button>
-            <ul class="nav-navbar container">
-                <li class="btn-cls"><i class="fa-solid fa-xmark"></i></li>
-                <li class="nav-item"><a class="nav-link ht" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link ht" href="#">Nearby Cuisine</a></li>
-                <li class="nav-item"><a class="nav-link ht lots" href="#"><img alt="" src="images/staff.png" /><span>Draw Lots</span></span></a></li>
-                <li class="nav-item"><a class="nav-link ht" href="#">Setting</a></li>
-                <li class="nav-item"><a class="nav-link ht" href="#">Contact</a></li>
-            </ul>
+            <script>
+                $(".navbar").load("--nav.html");
+            </script>
         </nav>
     
         <header class="header" style="background-image: url(https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);">
@@ -122,11 +87,11 @@
         </div>
     
         <div id="cursor" class="cursor"></div>
-        <img :src="imgUrl" />
+        
         <div class="ConfettiArea" :class="{hide: cftastt}">
             <div class="wrapper">
                 <div class="card" style="background-image: url(images/cards/image0.jpg)" >
-                    <img alt="" :src="`images/cards/image${imgNum}.jpg`" loading="lazy">
+                    <img alt="" :src="`assets/images/cards/image${imgNum}.jpg`" loading="lazy">
                     <div class="logo">Kama</div>
                     <div class="level">{{SSRpd}}</div>
                     <div class="info">
@@ -162,8 +127,8 @@
 
     <style class="hover"></style>
     <style class="spkimg"></style>
-    <script src="js/js-confetti.browser.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/spinwheel.js"></script>
+    <script src="assets/js/js-confetti.browser.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/spinwheel.js"></script>
 </body>
 </html>

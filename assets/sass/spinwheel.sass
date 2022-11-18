@@ -16,10 +16,10 @@
     justify-content: $jc
     align-items: $ai
 @mixin transition($value)
-    transition: $value
-    -o-transition: $value
-    -moz-transition: $value
     -webkit-transition: $value
+    -moz-transition: $value
+    -o-transition: $value
+    transition: $value
 @mixin keyframes($animationName)
     @keyframes #{$animationName}
         @content

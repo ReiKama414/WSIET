@@ -15,24 +15,28 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
     <link href="assets/css/main.min.css" rel="stylesheet">
     <link href="assets/css/spinwheel.min.css" rel="stylesheet">
-    <script>
-        $(".loader").load("--loader.html");
-        $(".navbar").load("--header.html");
-    </script>
 </head>
  
 <body>
     <section class="loader">
         <script>
-            $(".loader").load("--loader.html");
+            $(function () {
+                $(".loader").load("--loader.html");
+            });
         </script>
     </section>
 
     <div id="app" style="width: 100%; height: 100%;">
-        <nav class="navbar">
-            <script>
-                $(".navbar").load("--header.html");
-            </script>
+        <nav id="navbar" class="navbar">
+            <button type="button" class="navbar-toggler"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-navbar container">
+                <li class="btn-cls"><i class="fa-solid fa-xmark"></i></li>
+                <li class="nav-item"><a class="nav-link ht" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link ht" href="NearbyCuisine.html">Nearby Cuisine</a></li>
+                <li class="nav-item"><a class="nav-link ht lots" href="draw-lots.html"><img alt="" src="assets/\images/staff.png" /><span>Draw Lots</span></span></a></li>
+                <li class="nav-item"><a class="nav-link ht" href="#">Setting</a></li>
+                <li class="nav-item"><a class="nav-link ht" href="#">Contact</a></li>
+            </ul>
         </nav>
     
         <header class="header" style="background-image: url(https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);">
@@ -128,11 +132,26 @@
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
         }
     </script>
-
     <style class="hover"></style>
     <style class="spkimg"></style>
     <script src="assets/js/js-confetti.browser.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/spinwheel.js"></script>
+    <script type="text/javascript">
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var s;
+        (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+        (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+        (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+        (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+        (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+        //以下进行测试
+        if (Sys.ie) console.log('IE: ' + Sys.ie);
+        if (Sys.firefox) console.log('Firefox: ' + Sys.firefox);
+        if (Sys.chrome) console.log('Chrome: ' + Sys.chrome);
+        if (Sys.opera) console.log('Opera: ' + Sys.opera);
+        if (Sys.safari) console.log('Safari: ' + Sys.safari);
+</script>
 </body>
 </html>

@@ -17,7 +17,7 @@
     <link href="assets/css/map.min.css" rel="stylesheet">
     <script>
         $(function () {
-            $(".loader").load("--loader.html");
+            $(".loader").load("assets/component/--loader.html");
         });
     </script>
 </head>
@@ -140,7 +140,7 @@
         let loading = document.querySelector(".loader");
         window.addEventListener("load", function () {
             setTimeout(function () {
-                $(".navbar").load("--header.html");
+                $(".navbar").load("assets/component/--header.html");
                 loading.classList.add("hidden");
                 localStorage.removeItem("bg");
             }, 1200);

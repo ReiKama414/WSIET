@@ -73,9 +73,13 @@ body
         min-height: 100vh
     
 .inner
+    align-items: flex-start
+    .wrp
+        @include size(100%, max-content)
+        display: flex
+        flex-wrap: wrap
+        margin: auto
     &.hide
-        .SpinWheelWrapper
-            min-width: 100%
         .ToolsBar
             @include transition(all .5s)
             padding: 0
@@ -96,7 +100,7 @@ body
             @include font(700, 36px)
             position: absolute
             padding: 24px 48px
-            top: 43.5%
+            top: 47.5%
             opacity: .75
             color: #FFFFFF
             background: black
@@ -142,7 +146,7 @@ body
         @include size(max-content)
         position: absolute
         flex-direction: row
-        padding: 8px 16px
+        padding: var(--pd)
         top: 100px
         right: -39px
         background: var(--mainColor)
@@ -237,7 +241,7 @@ body
     &:not(.hide) .wrapper
         animation: zoom2 var(--dt-75)
     .wrapper
-        @include size(100%, 600px)
+        width: 100%
         max-width: 400px
         perspective: 2000px
     .card
@@ -246,6 +250,7 @@ body
         aspect-ratio: 6/9
         margin: 12px
         width: calc(100% - 24px)
+        max-height: calc(100vh - 108px)
         border-radius: 12px
         background-color: black
         background-size: cover
@@ -324,16 +329,20 @@ body
         margin: 0 12px
         padding: 8px 12px
         width: 100%
+        color: #101010
         background: var(--mainColor)
         border-radius: 12px
         z-index: 2
         &:hover
             opacity: 1
             box-shadow: var(--mainColor) 0px 0px 0px 2px
-        &:last-of-type
+        &:not(:first-of-type)
             @include size(48px)
+            margin: 0 6px
             background: #E6E6E6
             border-radius: 50%
+            &:last-of-type
+                margin-right: 12px
             &:hover
                 box-shadow: #E6E6E6 0px 0px 0px 2px
 #Copyalt
@@ -357,7 +366,8 @@ body
 
 @media (max-width: 1199.98px)
     .inner
-        flex-wrap: wrap
+        .wrp
+            justify-content: center
         .SpinWheelWrapper, .ToolsBar
             flex: none
             width: 100%
@@ -372,20 +382,13 @@ body
 
 @media (max-width: 767.98px)
     .inner .ToolsBar
-        buttonfont-size
+        button
             font-size: 18px
         textarea
             font-size: 16px
 
 @media (max-width: 575.98px)
     .inner
-        top: 75px
-        left: 0
-        right: 0
-        background: none
-        box-shadow: none
-        &::-webkit-scrollbar
-            display: none
         .ToolsBar
             button
                 font-size: 16px

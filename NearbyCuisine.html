@@ -15,49 +15,138 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
     <link href="assets/css/main.min.css" rel="stylesheet">
     <link href="assets/css/map.min.css" rel="stylesheet">
+    <script>
+        $(function () {
+            $(".loader").load("--loader.html");
+        });
+    </script>
 </head>
  
 <body>
-    <!-- <section class="loader">
-        <script>
-            $(".loader").load("--loader.html");
-        </script>
-    </section> -->
+    <section class="loader">
+    </section>
 
     <div id="app" style="width: 100%; height: 100%;">
-        <nav class="navbar">
-            <button type="button" class="navbar-toggler"><i class="fa-solid fa-bars"></i></button>
-            <ul class="nav-navbar container">
-                <li class="btn-cls"><i class="fa-solid fa-xmark"></i></li>
-                <li class="nav-item"><a class="nav-link ht" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link ht" href="NearbyCuisine.html">Nearby Cuisine</a></li>
-                <li class="nav-item"><a class="nav-link ht lots" href="draw-lots.html"><img alt="" src="assets/\images/staff.png" /><span>Draw Lots</span></span></a></li>
-                <li class="nav-item"><a class="nav-link ht" href="#">Setting</a></li>
-                <li class="nav-item"><a class="nav-link ht" href="#">Contact</a></li>
-            </ul>
-        </nav>
+        <nav class="navbar"></nav>
     
         <header class="header" style="background-image: url(https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);">
             <div class="overlay"></div>
         </header>
 
         <div class="inner container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d58751.54211840922!2d120.16757590651997!3d23.02482294686408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z54K46Yas6bq1!5e0!3m2!1szh-TW!2stw!4v1668677293436!5m2!1szh-TW!2stw"
+            <iframe id="map"
+                    :src=MapURL
                     width="100%"
                     height="100%"
-                    style="
-                        border:0;
-                        filter: brightness(.9) contrast(105%) grayscale(15%) invert(5%) saturate(75%) hue-rotate(320deg);
-                        "
+                    style="border: 0;"
+                    :style="{filter: pickedTheme}"
                     allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
+                    loading="lazy" >
             </iframe>
+
+            <div class="setting">
+                <div class="container-box mt-scit dt-left" tabindex="1" data-title="Search">
+                    <input type="text" class="scb" v-model="searchText" placeholder="Search">
+                    <button type="button" class="btn-ccsc" @click="clearSerchbox">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <button type="button" class="btn-sc" @click.prevent="playSound('assets/voice/tap.wav')">
+                        <img alt="" src="assets/images/search.svg" style="transform: scale(.6);"/>
+                        <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                    </button>
+                </div>
+                <div class="container-box mt-cdcs dt-left" tabindex="2" style="z-index: 2;" data-title="City & District">
+                    <div class="dropdown dd-ct">
+                        <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ city }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" v-for="(ct, index) in cityList" :key="index" @click="switchSelect($event)">{{ ct }}</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown dd-ds">
+                        <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ dist }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" v-for="(ds, index) in distList" :key="index" @click="switchSelect($event)">{{ ds }}</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn-sc img m-m" @click.prevent="playSound('assets/voice/tap.wav')">
+                        <img alt="" src="assets/images/map.svg" />
+                    </button>
+                </div>
+                <div class="container-box mt-rcmd dt-left" tabindex="3" data-title="Recommend">
+                    <div class="dropdown dd-cm">
+                        <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ tag }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" v-for="(tl, index) in tagList" :key="index" @click="switchSelect($event)">{{ tl }}</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn-ccsc m-add" @click="QuickSearch">
+                        <img alt="" src="assets/images/add.svg" />
+                    </button>
+                    <button type="button" class="btn-sc img m-rc" @click.prevent="playSound('assets/voice/tap.wav')">
+                        <img alt="" src="assets/images/recommend.svg" />
+                    </button>
+                </div>
+                <div class="container-box mt-pptt dt-left" tabindex="4" data-title="Theme">
+                    <label class="form-control">
+                        <input type="radio" v-model="pickedTheme" value="none" />
+                        Def.
+                    </label>
+                    <label class="form-control">
+                        <input type="radio" v-model="pickedTheme" value="brightness(.95) contrast(105%) grayscale(0) invert(0) saturate(115%) sepia(0) hue-rotate(333deg)" />
+                        L1
+                    </label>
+                    <label class="form-control">
+                        <input type="radio" v-model="pickedTheme" value="brightness(.9) contrast(105%) grayscale(15%) invert(5%) saturate(75%) sepia(0) hue-rotate(320deg)" />
+                        L2
+                    </label>
+                    <label class="form-control">
+                        <input type="radio" v-model="pickedTheme" value="brightness(.95) contrast(115%) grayscale(70%) invert(5%) saturate(140%) sepia(0) hue-rotate(191deg)" />
+                        L3
+                    </label>
+                    <label class="form-control">
+                        <input type="radio" v-model="pickedTheme" value="brightness(1.05) contrast(100%) grayscale(0) invert(100%) saturate(200%) sepia(25%) hue-rotate(333deg)" />
+                        D1
+                    </label>
+                    <label class="form-control">
+                        <input type="radio" v-model="pickedTheme" value="brightness(.95) contrast(115%) grayscale(70%) invert(100%) saturate(140%) sepia(0) hue-rotate(191deg)" />
+                        D2
+                    </label>
+                    <label class="form-control">
+                        <input type="radio" v-model="pickedTheme" value="brightness(1.05) contrast(105%) grayscale(25%) invert(100%) saturate(140%) sepia(35%) hue-rotate(179deg)" />
+                        D3
+                    </label>
+                    <button type="button" class="btn-sc img m-pp" @click.prevent="playSound('assets/voice/tap.wav')">
+                        <img alt="" src="assets/images/paint-palette.svg" />
+                    </button>
+                </div>
+                <div class="container-box mt-pptt dt-left" tabindex="5" data-title="Google">
+                    <a :href=MapURL2 target="_blank" class="btn-sc img m-gg" @click="playSound('assets/voice/tap.wav')" style="background: #887EBB; border-radius: 10% 40% / 50% 20%;">
+                        <img alt="" src="assets/images/goGoogle.svg" />
+                    </a>
+                </div>
+            </div>
         </div>
     
         <div id="cursor" class="cursor"></div>
     </div>
 
+    <script>
+        let loading = document.querySelector(".loader");
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                $(".navbar").load("--header.html");
+                loading.classList.add("hidden");
+                localStorage.removeItem("bg");
+            }, 1200);
+        });
+    </script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/map.js"></script>
 </body>
 </html>

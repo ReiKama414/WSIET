@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap')
 
 @mixin size($w, $h: $w)
     width: $w
@@ -46,6 +47,7 @@
     --color-dark: #212529
     --font-color-light: #848383
     --border-color: #DC7B60
+    --pd: 8px 16px
 *, *::before, *::after, p
     box-sizing: border-box
     margin: 0
@@ -88,7 +90,7 @@ input
     border: none
 body
     @include d-flex-c
-    font-family: Quicksand, sans-serif
+    font-family: -apple-system, Quicksand, 'Noto Sans TC', Arial, Helvetica, sans-serif
     overflow: hidden
     font-weight: 400
     font-size: 1rem
@@ -101,10 +103,44 @@ body
     display: flex
 .d-fai
     align-items: center
+.d-fjs
+    justify-content: center
 .d-fjcsb
     justify-content: space-between
 .d-f1
     flex: 1 1 auto
+
+[data-title]
+    position: relative
+    &:not(.active)::after
+        @include transition(transform .1s ease-in-out)
+        @include font(900, .75rem, 1)
+        content: attr(data-title)
+        position: absolute
+        white-space: nowrap
+        padding: var(--pd)
+        letter-spacing: .2rem
+        color: #FFF
+        background: #696969
+        border-radius: 10px
+        text-transform: capitalize
+        transform: scale(0)
+        z-index: 10000
+    &:hover::after
+        transform: scale(1)
+    &.dt-top::after
+        top: -40px
+        left: -50%
+    &.dt-bottom::after
+        top: 100%
+        left: 25%
+    &.dt-left::after
+        top: 25%
+        right: 120%
+    &.dt-right::after
+        top: -8px
+        left: 120%
+            
 
 /* NavBar */
 .navbar
@@ -145,7 +181,7 @@ body
             flex: 1
             .nav-link
                 position: relative
-                padding: 8px 16px
+                padding: var(--pd)
                 font-weight: 700
                 color: #FFFFFF
                 span
@@ -462,8 +498,19 @@ body
     .header .header-content button
         width: 300px
     
+@media (max-width: 575.98px)
+    .inner
+        top: 85px
+        left: 0
+        right: 0
+        background: none
+        border-radius: 0
+        box-shadow: none
+        &::-webkit-scrollbar
+            display: none
+
 @media (max-width: 419.98px)
     .header .header-content button
-        padding: 8px 16px
+        padding: var(--pd)
         width: 200px
         animation: none

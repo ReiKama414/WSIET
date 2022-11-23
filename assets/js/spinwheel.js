@@ -24,22 +24,22 @@ $(function () {
         {
             emojis: ['🍀'],
             emojiSize: 40,
-            confettiNumber: 57,
+            confettiNumber: 40,
         },
         {
             emojis: ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼‍', '🐻', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐺', '🐗', '🦓', '🐲', '🐴', '🦄', '🦝'],
             emojiSize: 28,
-            confettiNumber: 120,
+            confettiNumber: 100,
         },
         {
             emojis: ['🐈‍'],
             emojiSize: 35,
-            confettiNumber: 50,
+            confettiNumber: 40,
         },
         {
             emojis: ['🐹'],
             emojiSize: 30,
-            confettiNumber: 60,
+            confettiNumber: 40,
         }, {
             confettiColors: ["#FFBE0B", "#FB5607", "#FF006E", "#8338EC", "#3A86FF"],
             confettiRadius: 10,
@@ -75,7 +75,15 @@ $(function () {
                 }
                 return colors[n % colors.length];
             },
+            playSound (sound) {
+              if(sound) {
+                var audio = new Audio(sound);
+                audio.play();
+              };
+            },
             spin() {
+                this.playSound("assets/voice/tap.wav");
+                this.playSound("assets/voice/wheel.wav");
                 const SpinLength = 4200;
                 const startDeg = Number(this.currentDeg) || 500;
                 const ConfettiLength = Confettidata.length;
@@ -89,6 +97,8 @@ $(function () {
                 this.work = true;
                 document.querySelector('.spkimg').innerHTML = `.ConfettiArea .card::after{ background-image: url('assets/images/sparkles/sparkles${Math.floor((Math.random() * 5) + 1)}.gif') }`;
                 setTimeout(() => {
+                    this.playSound("assets/voice/bingo.wav");
+                    this.playSound(`assets/voice/meow${Math.floor((Math.random() * 3) + 1)}.wav`);
                     this.timeFormate(new Date());
                     this.work = false;
                     this.cftastt = false;
@@ -97,6 +107,7 @@ $(function () {
                 jsConfetti.clearCanvas()
 
                 this.currentDeg = startDeg + Math.round(Math.random() * (SpinLength - 360) + 360);
+                document.querySelector('.rotate').innerHTML = `.inner .SpinWheelWrapper .SpinWheel .wheel { transform: rotate(${this.currentDeg}deg) }`;
             },
             textPercentage(n) {
                 return (n * (360 / this.items.length)) + (360 / (this.items.length * 2)) + 90;
@@ -112,6 +123,7 @@ $(function () {
                 this.selected = e.target.textContent;
             },
             addoption() {
+                this.playSound("assets/voice/tap.wav");
                 if (this.selected != Origin) {
                     this.itemsList += "\n" + this.selected;
                     this.selected = Origin;
@@ -132,14 +144,21 @@ $(function () {
                 this.time = `${year}/${month}/${date} ${hour}:${minute}:${second}`;
             },
             done() {
+                this.playSound("assets/voice/tap.wav");
                 this.cftastt = true;
             },
             async copy() {
+                this.playSound("assets/voice/tap.wav");
                 try {
                     await navigator.clipboard.writeText(this.answer);
                 } catch($e) {
                     alert("Copy Failed");
-                }
+                };
+            },
+            search() {
+                this.playSound("assets/voice/tap.wav");
+                localStorage.setItem("bg", this.answer);
+                window.location.href = "NearbyCuisine.html";
             },
         },
         computed: {

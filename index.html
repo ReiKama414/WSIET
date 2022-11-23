@@ -14,26 +14,18 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
     <link href="assets/css/main.min.css" rel="stylesheet">
     <link href="assets/css/carousel.min.css" rel="stylesheet">
+    <script>
+        $(function () {
+            $(".loader").load("--loader.html");
+        });
+    </script>
 </head>
  
 <body>
     <section class="loader">
-        <script>
-            $(".loader").load("--loader.html");
-        </script>
     </section>
 
-    <nav class="navbar">
-        <button type="button" class="navbar-toggler"><i class="fa-solid fa-bars"></i></button>
-        <ul class="nav-navbar container">
-            <li class="btn-cls"><i class="fa-solid fa-xmark"></i></li>
-            <li class="nav-item"><a class="nav-link ht" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link ht" href="NearbyCuisine.html">Nearby Cuisine</a></li>
-            <li class="nav-item"><a class="nav-link ht lots" href="draw-lots.html"><img alt="" src="assets/\images/staff.png" /><span>Draw Lots</span></span></a></li>
-            <li class="nav-item"><a class="nav-link ht" href="#">Setting</a></li>
-            <li class="nav-item"><a class="nav-link ht" href="#">Contact</a></li>
-        </ul>
-    </nav>
+    <nav class="navbar"></nav>
     <header class="header">
         <div class="C-carousel">
             <div class="C-slide" style="background-image: url(https://images.unsplash.com/photo-1460819739742-50e4486578f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80);"></div>
@@ -54,6 +46,15 @@
     
     <div id="cursor" class="cursor"></div>
 
+    <script>
+        let loading = document.querySelector(".loader");
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                $(".navbar").load("--header.html");
+                loading.classList.add("hidden");
+            }, 1200);
+        });
+    </script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/carousel.js"></script>
 </body>

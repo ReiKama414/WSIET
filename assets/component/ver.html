@@ -9,21 +9,37 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.44/vue.global.prod.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <link href="../css/main.min.css" rel="stylesheet">
     <style scoped>
     body {
         align-items: flex-start;
+        overflow-y: scroll;
+        padding: 0 24px;
         color: #F2F2F2;
         background: #202327;
     }
-    ul span {
+    body::-webkit-scrollbar {
+        width: 20px
+    }
+    body::-webkit-scrollbar-track {
+        background: #202327;
+        border-radius: 0;
+    }
+    body::-webkit-scrollbar-thumb {
+        border: 8px solid #202327;
+    }
+    .tt > ul > li > span {
         padding: 4px 12px;
         font-weight: 600;
         font-size: 1.1rem;
         color: #202327;
         border-radius: 4px;
+    }
+    ul span ~ div {
+        height: .6rem;
     }
     .a {
         background: #FFC35C;
@@ -34,40 +50,176 @@
     ul ul {
         list-style-type: disc;
     }
+    .l {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .l > div {
+        margin-bottom: 2.8rem;
+    }
+    .l .tv {
+        flex: 0 0 auto;
+        margin-right: 1.5rem;
+        width: 140px;
+    }
+    .l .tt {
+        flex: 1 1 auto;
+        border-bottom: 2px solid #FFF;
+    }
+    .l .tt > ul {
+        padding: 0;
+        margin-bottom: 1.5rem;
+        list-style: none;
+    }
+    li li {
+        font-size: 1.15rem; 
+        margin-bottom: .6rem;
+    }
+    li li p {
+        margin-top: .6rem;
+        font-size: .5rem; 
+        line-height: 1.2;
+    }
+    a:hover {
+        color: #FFC35C;
+    }
+    .source {
+        margin-bottom: 1rem;
+        padding: 8px 12px;
+        background: #4A4646;
+        border-radius: 13px;
+    }
+    .source ol {
+        margin: 0;
+        font-size: .75rem;
+    }
     </style>
 </head>
  
 <body>
-    <div class="container" style="max-width: 768px;">
+    <div id="app" class="container" style="max-width: 768px;">
         <h1 class="mt-5 mb-5" style="font-weight: bold;font-size: 2.1rem; text-align: center;">Latest Updates</h1>
-        <div>
-            <div class="d-flex flex-row">
-                <div class="me-4" style="flex: 0 0 auto;">
-                    <h4 style="font-weight: 600;font-size: 1.2rem;">2022/11/24</h3>
-                    <h5 style="font-weight: 500;font-size: 1rem;">Version 4</h4>
+        <div class="l">
+            <div class="d-flex flex-row" v-for="(vl, index) in logList">
+                <div class="tv">
+                    <h4 style="font-weight: 600;font-size: 1.2rem;">{{ vl.date }}</h3>
+                    <h5 style="font-weight: 500;font-size: 1rem;">Version {{ index + 1 }}</h4>
                 </div>
-                <div style="flex: 1 1 auto; border-bottom: 2px solid #FFF;">
-                    <ul class="mb-4" style="list-style: none;">
-                        <li class="mb-4">
+                <div class="tt">
+                    <ul>
+                        <li class="mb-4" v-if="vl.addlog[0] != null">
                             <span class="a">Added</span>
-                            <div style="height: .6rem;"></div>
+                            <div></div>
                             <ul>
-                                <li>unordered item 2-1</li>
-                                <li>unordered item 2-2</li>
+                                <li v-for="al in vl.addlog">
+                                    {{ al.title }}
+                                    <br />
+                                    <p>{{ al.content }}</p>
+                                </li>
                             </ul>
                         </li>
-                        <li>
+                        <li v-if="vl.updlog[0] != null">
                             <span class="b">Updated</span>
-                            <div style="height: .6rem;"></div>
+                            <div></div>
                             <ul>
-                                <li>unordered item 2-1</li>
-                                <li>unordered item 2-2</li>
+                                <li v-for="ul in vl.updlog">
+                                    {{ ul.title }}
+                                    <br />
+                                    <p>{{ ul.content }}</p>
+                                </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
+        <div class="source d-flex">
+            <h6>Images Source (CC0): </h6>
+            <ol>
+                <li><a href="https://unsplash.com" target="_blank">Beautiful Free Images & Pictures | Unsplash</a></li>
+                <li><a href="https://www.svgrepo.com" target="_blank">Vector Icons and Stickers - PNG, SVG, EPS, PSD and CSS</a></li>
+                <li><a href="https://emojipedia.org/food-drink" target="_blank">🍔 Food & Drink Emoji Meanings</a></li>
+                <li><a href="https://www.flaticon.com" target="_blank">SVG Repo - Free SVG Vectors and Icons</a></li>
+            </ol>
+        </div>
     </div>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    logList: [
+                        {
+                            date: "Long Time Ago",
+                            addlog: [ {
+                                title: "Spin Wheel",
+                                content: "Creating, Fixing bugs, Adding new features, and Improving them.",
+                            }, ],
+                            updlog: [],
+                        },
+                        {
+                            date: "Nov 15, 2022",
+                            addlog: [ {
+                                title: "Memory Function",
+                                content: "Store the last Spin Wheel content and Map theme color lacally.",
+                            },],
+                            updlog: [ {
+                                title: "Fix Navbar",
+                                content: "Adjust bug that the navigation bar was missing due to the order of routing and script.",
+                            },],
+                        },
+                        {
+                            date: "Nov 18, 2022",
+                            addlog: [ ],
+                            updlog: [ {
+                                title: "Font Change",
+                                content: "",
+                            }, {
+                                title: "Route Modification",
+                                content: "",
+                            },],
+                        },
+                        {
+                            date: "Nov 23, 2022",
+                            addlog: [ {
+                                title: "Added Sound Effects",
+                                content: "Added new 1 spinning,1 tapping and 4 ending pieces of music e.g., Mewo.",
+                            },{
+                                title: "Icon Tooltip",
+                                content: "It can help you understand more about the function of the icon button.",
+                            },{
+                                title: "Added \"Nearby Cuisine\" page and function",
+                                content: "You can use Word, City, Dict and Recommended keywords for search, or you can search directly on Google Map. And you also can customize the color of map theme, with a total of 7 maps themes to choose from. ",
+                            },{
+                                title: "Combined Search",
+                                content: "Combine Spin Wheel results with \"Nearby Cuisine\" to search",
+                            }, ],
+                            updlog: [{
+                                title: "Fix Spin Wheel Rotation Issue",
+                                content: "Fix the problem that the Spin Wheel didn't rotate in FireFox and all systems whose kernel code is moz.",
+                            },{
+                                title: "Text Part Correction",
+                                content: "",
+                            },],
+                        },
+                        {
+                            date: "Nov 24, 2022",
+                            addlog: [ {
+                                title: "Latest Updates Page & Versioning",
+                                content: "Added versioning at the left of Spin Wheel and upper right corner navbar, you can see what are the latest updates.",
+                            },{
+                                title: "Current Spin Wheel History",
+                                content: "It will shows all the results selected during the current visit, but all the results in the previous visits will not be recorded.",
+                            }, ],
+                            updlog: [ {
+                                title: "Image Source",
+                                content: "Comment image source URL.",
+                            },],
+                        },
+                    ],
+                };
+            },
+        }).mount('#app');
+    </script>
 </body>
 </html>

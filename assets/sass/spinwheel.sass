@@ -100,7 +100,7 @@ body
             @include font(700, 36px)
             position: absolute
             padding: 24px 48px
-            top: 47.5%
+            top: 45%
             opacity: .75
             color: #FFFFFF
             background: black
@@ -345,6 +345,7 @@ body
                 margin-right: 12px
             &:hover
                 box-shadow: #E6E6E6 0px 0px 0px 2px
+
 #Copyalt
     @include font(700, 1.6rem, 1)
     position: fixed
@@ -363,6 +364,46 @@ body
         visibility: visible
         animation: fadein 0.5s, fadeout 0.5s 2.5s
 
+.v
+    position: absolute
+    margin: 36px 0 0 36px
+    left: 0
+    z-index: 2
+    .btn-tl
+        @include d-flex-c
+        @include size(42px)
+        padding: 9px
+        background-color: rgb(188, 188, 188)
+        border-radius: 50%
+        img
+            @include size(100%)
+            object-fit: contain
+    > div
+        position: relative
+        &:not(.active) > div
+            opacity: 0
+            pointer-events: none
+    .hity
+        @include d-flex-c
+        @include size(230px)
+        @include font(500, .9rem, 1.65)
+        @include transition(opacity .25s)
+        position: absolute
+        white-space: break-spaces
+        text-align: center
+        overflow-y: auto
+        padding: var(--pd)
+        opacity: 1
+        top: 0
+        left: 120%
+        background: rgba(0, 0, 0, .85)
+        border-radius: 4px
+        z-index: 10002
+        &:not(.none)
+            justify-content: flex-start
+            align-items: flex-start
+            text-align: left
+    
 
 @media (max-width: 1199.98px)
     .inner
@@ -394,6 +435,8 @@ body
                 font-size: 16px
             textarea
                 font-size: 14px
+    .v
+        margin: 18px 0 0 18px
 
 @media (max-width: 399.98px)
     .ConfettiArea .card
@@ -407,3 +450,7 @@ body
                 font-size: 2rem
             .stargroup span
                 font-size: 1.7rem
+    .v
+        margin: 8px 0 0 8px
+        button
+            @include size(36px)

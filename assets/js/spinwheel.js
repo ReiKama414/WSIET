@@ -50,7 +50,7 @@ $(function () {
             confettiNumber: 300
         },
     ];
-    const jsConfetti = new JSConfetti({})
+    const jsConfetti = new JSConfetti({});
 
     Vue.createApp({
         data() {
@@ -65,6 +65,7 @@ $(function () {
                 hide1: false,
                 SSRpd: "",
                 imgNum: `${Math.floor((Math.random() * 56) + 1)}`,
+                historyText: [],
             };
         },
         methods: {
@@ -103,6 +104,7 @@ $(function () {
                     this.work = false;
                     this.cftastt = false;
                     jsConfetti.addConfetti(Confettidata[Math.floor(Math.random() * ConfettiLength)]);
+                    this.historyText.unshift(this.answer);
                 }, SpinLength);
                 jsConfetti.clearCanvas()
 
@@ -178,6 +180,10 @@ $(function () {
                 };
                 return itemsListr[Math.trunc((this.currentDeg / (360 / this.items.length)) % this.items.length)];
             },
+            history() {
+                var h = this.historyText.join("\n");
+                return h;
+            },
         },
         watch: {
             itemsList(value) {
@@ -217,4 +223,10 @@ $(function () {
     });
 
     /*****/
+
+    var ctnb = $(".btn-tl");
+    ctnb.click(function () {
+      let $this = $(this).parent();
+      $this.toggleClass("active");
+    });
 });

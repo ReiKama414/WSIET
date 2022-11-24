@@ -132,6 +132,7 @@
                 </div>
             </div>
         </div>
+        <section class="footer"></section>
     
         <div id="cursor" class="cursor"></div>
     </div>
@@ -141,6 +142,7 @@
         window.addEventListener("load", function () {
             setTimeout(function () {
                 $(".navbar").load("assets/component/--header.html");
+                $(".footer").load("assets/component/--footer.html");
                 loading.classList.add("hidden");
                 localStorage.removeItem("bg");
             }, 1200);

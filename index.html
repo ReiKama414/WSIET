@@ -43,6 +43,8 @@
           <button type="button" class="ht btn-jittery" onclick="window.location='draw-lots.html'">Let's Draw Lots<i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </header>
+
+    <section class="footer"></section>
     
     <div id="cursor" class="cursor"></div>
 
@@ -51,6 +53,7 @@
         window.addEventListener("load", function () {
             setTimeout(function () {
                 $(".navbar").load("assets/component/--header.html");
+                $(".footer").load("assets/component/--footer.html");
                 loading.classList.add("hidden");
             }, 1200);
         });

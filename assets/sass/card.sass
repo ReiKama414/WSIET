@@ -1,0 +1,171 @@
+
+@mixin size($w, $h: $w)
+    width: $w
+    height: $h
+@mixin d-flex-c($rc: unset, $jc: center, $ai: center)
+    display: flex
+    flex-direction: $rc
+    justify-content: $jc
+    align-items: $ai
+@mixin transition($value)
+    transition: $value
+    -o-transition: $value
+    -moz-transition: $value
+    -webkit-transition: $value
+@mixin keyframes($animationName)
+  @-webkit-keyframes #{$animationName}
+    @content
+  @-moz-keyframes #{$animationName}
+    @content
+  @-o-keyframes #{$animationName}
+    @content
+  @keyframes #{$animationName}
+    @content
+@mixin font($fw: 500, $fs: 16px, $lh: 24px)
+    font-weight: $fw
+    font-size: $fs
+    line-height: $lh
+
+.cctn
+    position: absolute
+    overflow-y: auto
+    overflow-x: hidden
+    text-align: center
+    margin: auto
+    inset: 0
+    top: 100px
+    z-index: 999
+    .cdpt
+        @include d-flex-c(column)
+        > h1
+          margin-top: 1.75rem
+          font-size: 1.8rem
+        > p
+          max-width: 450px
+          font-size: .85rem
+.csgrp
+  @include d-flex-c
+  flex-wrap: wrap
+  margin: 6rem 0 3rem
+  h1
+    margin: 2rem 0
+    font-size: 1.8rem
+  .cwpr
+    @include transition(opacity .55s .45s)
+  .cwpr.hd
+    opacity: 0
+    box-shadow: none
+    animation: none
+
+.cwpr
+  padding: var(--pd)
+  perspective: 2000px
+  .ccd
+      @include transition(transform .25s)
+      overflow: hidden
+      aspect-ratio: 6/9
+      background-color: black
+      background-size: cover
+      background-repeat: no-repeat
+      background-position: center
+      border-radius: .75rem
+      &.sample
+        --color1: #FF7B00
+        --color2: #FFF700
+        box-shadow: -15px -15px 60px -10px var(--color1), 15px 15px 60px -10px var(--color2), 0 0 4px 8px #FFB30080, 0 35px 25px -15px rgba(0, 0, 0, 0.3),0 0px 120px -15px rgba(255 199 199 / 65%)
+      &:not(.sample):not(.null)
+        --color1: #E30171
+        --color2: #FFF30B
+        position: relative
+        box-shadow: -13px -13px 13px -15px var(--color1), 13px 13px 13px -15px var(--color2), 0 0 4px 2px rgb(253 126 20 / 93%), 0 35px 25px -15px rgba(0, 0, 0, 0.3)
+        &::before, &::after
+          @include transition(all .5s)
+          content: ""
+          position: absolute
+          inset: 0
+          mix-blend-mode: screen
+          background-repeat: no-repeat
+          z-index: 2
+        &::before
+          background-image: linear-gradient(115deg, transparent 0%, var(--color1) 30%, transparent 47.5%, transparent 52.5%, var(--color2) 70%, transparent 100%)
+          background-size: 300% 300%
+          background-position: 50% 50%
+        &::after
+          background-image: url('../images/sparkles/sparkles' + '5' + '.gif')
+          background-size: 150%
+          background-position: center
+          filter: brightness(.5)
+      img
+        @include d-flex-c
+        @include size(100%)
+        position: absolute
+        object-fit: cover
+        backface-visibility: hidden
+        transform-style: preserve-3d
+      ~ p
+        margin: 1.85rem 0
+        &::before, &::after
+          content: "-"
+          margin: 0 .65rem
+
+// Toggle
+.toggleSwitch
+  @include size(200px, 34px)
+  position: relative
+  padding: 0
+  background-color: transparent
+  border: 2px solid #FFF
+  border-radius: 8px
+  cursor: pointer
+  user-select: none
+  label
+    position: relative
+    width: 100%
+  input
+    position: absolute
+    opacity: 0
+  > span
+    position: absolute
+    white-space: nowrap
+    text-align: left
+    margin: 0 3px
+    left: 0
+    width: calc(100% - 6px)
+    span
+      @include font(900, .9em, 34px)
+      position: absolute
+      text-align: center
+      margin-left: 50px
+      opacity: 1
+      top: -1px
+      left: 0
+      width: 40%
+  a
+    @include transition(all 0.2s ease-out)
+    position: absolute
+    inset: 3px
+    right: 50%
+    width: 50%
+    background-color: #E18C3C
+    border-radius: 4px
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05)
+  > span span
+    margin: 0
+    width: 50%
+    &:first-of-type
+      color: #FFF
+      opacity: 1
+      left: 0
+    &:last-of-type
+      left: auto
+      right: 0
+      color: #999
+  input:checked ~
+    a
+      left: calc(50% - 3px)
+    span span
+      &:first-of-type
+        left: 0
+        color: #999
+      &:last-of-type
+        color: #FFF

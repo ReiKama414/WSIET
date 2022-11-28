@@ -50,7 +50,9 @@ $(function () {
             confettiNumber: 300
         },
     ];
+    var imgCount = 100;
     const jsConfetti = new JSConfetti({});
+    var storedCard = JSON.parse(localStorage.getItem("icl"));
 
     Vue.createApp({
         data() {
@@ -64,8 +66,9 @@ $(function () {
                 cftastt: true,
                 hide1: false,
                 SSRpd: "",
-                imgNum: `${Math.floor((Math.random() * 56) + 1)}`,
+                imgNum: `${Math.floor((Math.random() * imgCount) + 1)}`,
                 historyText: [],
+                imgCptList: storedCard ? storedCard : [],
             };
         },
         methods: {
@@ -92,7 +95,7 @@ $(function () {
                 if (document.querySelector(".hint")) {
                     document.querySelector(".hint").remove();
                 } else {
-                    this.imgNum = `${Math.floor((Math.random() * 56) + 1)}`;
+                    this.imgNum = `${Math.floor((Math.random() * imgCount) + 1)}`;
                 };
 
                 this.work = true;
@@ -104,7 +107,13 @@ $(function () {
                     this.work = false;
                     this.cftastt = false;
                     jsConfetti.addConfetti(Confettidata[Math.floor(Math.random() * ConfettiLength)]);
+
                     this.historyText.unshift(this.answer);
+
+                    if (!this.imgCptList.includes(this.imgNum)) {
+                        this.imgCptList.push(this.imgNum);
+                        localStorage.setItem("icl", JSON.stringify(this.imgCptList));
+                    };
                 }, SpinLength);
                 jsConfetti.clearCanvas()
 
@@ -211,8 +220,8 @@ $(function () {
             bg2 = `background-position: ${lp2}% ${tp2}%;`;
         var tf = `transform: rotateX(${ty}deg) rotateY(${tx}deg)`;
         var style = `
-            .card.active:before { ${bg} }
-            .card.active:after { ${bg2} }
+            .card.active::before { ${bg} }
+            .card.active::after { ${bg2} }
             .card.active { ${tf} }
         `;
         $this.removeClass("active");
@@ -227,6 +236,7 @@ $(function () {
     var ctnb = $(".btn-tl");
     ctnb.click(function () {
       let $this = $(this).parent();
+      $this.siblings().removeClass("active");
       $this.toggleClass("active");
     });
 });

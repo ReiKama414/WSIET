@@ -31,6 +31,12 @@
     body::-webkit-scrollbar-thumb {
         border: 8px solid #202327;
     }
+    h1 {
+        margin: 3rem 0;
+        font-weight: bold;
+        font-size: 2.1rem;
+        text-align: center;
+    }
     .tt > ul > li > span {
         padding: 4px 12px;
         font-weight: 600;
@@ -55,6 +61,7 @@
         flex-direction: column-reverse;
     }
     .l > div {
+        flex-direction: row;
         margin-bottom: 2.8rem;
     }
     .l .tv {
@@ -84,6 +91,7 @@
         color: #FFC35C;
     }
     .source {
+        display: flex;
         margin-bottom: 1rem;
         padding: 8px 12px;
         background: #4A4646;
@@ -93,14 +101,65 @@
         margin: 0;
         font-size: .75rem;
     }
+    .sm {
+        display: none;
+        margin-bottom: 1rem;
+        text-align: end;
+    }
+    @media (max-width: 575.98px) {
+        h1 {
+            font-size: 1.8rem;
+        }
+        .l > div {
+            flex-direction: column;
+        }
+        .l .tv {
+            margin-bottom: 1rem;
+        }
+    }
+    @media (max-width: 239.98px) {
+        body {
+            padding: 0 8px;
+        }
+        h1 {
+            display: none;
+        }
+        .tv {
+            margin-top: 1rem;
+        }
+        .tt > ul > li > span {
+            font-size: 0.9rem;
+        }
+        ul ul {
+            padding-left: .75rem;
+        }
+        li li {
+            font-size: .8rem;
+        }
+        .source {
+            display: none;
+        }
+        .l > div:not(:last-of-type) {
+            display: none !important;
+        }
+        .l > div:last-of-type {
+            margin-bottom: 0;
+        }
+        .l .tt {
+            border-bottom: none;
+        }
+        .sm {
+            display: block;
+        }
+    }
     </style>
 </head>
  
 <body>
     <div id="app" class="container" style="max-width: 768px;">
-        <h1 class="mt-5 mb-5" style="font-weight: bold;font-size: 2.1rem; text-align: center;">Latest Updates</h1>
+        <h1>Latest Updates</h1>
         <div class="l">
-            <div class="d-flex flex-row" v-for="(vl, index) in logList">
+            <div class="d-flex" v-for="(vl, index) in logList">
                 <div class="tv">
                     <h4 style="font-weight: 600;font-size: 1.2rem;">{{ vl.date }}</h3>
                     <h5 style="font-weight: 500;font-size: 1rem;">Version {{ index + 1 }}</h4>
@@ -133,7 +192,7 @@
                 </div>
             </div>
         </div>
-        <div class="source d-flex">
+        <div class="source">
             <h6>Images Source (CC0): </h6>
             <ol>
                 <li><a href="https://unsplash.com" target="_blank">Beautiful Free Images & Pictures | Unsplash</a></li>
@@ -142,6 +201,7 @@
                 <li><a href="https://www.flaticon.com" target="_blank">SVG Repo - Free SVG Vectors and Icons</a></li>
             </ol>
         </div>
+        <a class="sm" href="../../LatestUpdates.html" target="_blank">See More</a>
     </div>
 
     <script>
@@ -214,7 +274,29 @@
                             updlog: [ {
                                 title: "Image Source",
                                 content: "Comment image source URL.",
+                            },{
+                                title: "UI/UX",
+                                content: "Adjust UI level(z-index) issues.",
+                            },{
+                                title: "Added Cards",
+                                content: "Added 44 cat cards to randomly generated backgrounds.",
                             },],
+                        },
+                        {
+                            date: "Nov 25, 2022",
+                            addlog: [],
+                            updlog: [ {
+                                title: "Repair Transition Animation Effects",
+                                content: "Fix the mouse event triggering animation of the cat card was too blunt.",
+                            },],
+                        },
+                        {
+                            date: "Nov 28, 2022",
+                            addlog: [ {
+                                title: "Cards Collection Book",
+                                content: "Add Collection of cat Cards, and use Intersection Observer API to monitor the sliding of image elements. In order to achieve the purpose of Image Loading.",
+                            },],
+                            updlog: [],
                         },
                     ],
                 };

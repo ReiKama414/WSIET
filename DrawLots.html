@@ -56,23 +56,6 @@
                         </svg>
                     </div>
                 </div>
-                
-                <section class="v">
-                    <div> <!-- class="active" -->
-                        <button type="button" class="btn-tl mb-2 dt-right" @click="playSound('assets/voice/tap.wav')" data-title="version"><img alt="" src="assets/images/log.svg"/></button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn-tl dt-right" @click="playSound('assets/voice/tap.wav')" data-title="history"><img alt="" src="assets/images/history.svg"/></button>
-                        <div class="hity container" v-if="historyText != ''">
-                            {{ history }}
-                        </div>
-                        <div class="hity container none" v-else>
-                            There is no record for Spin wheel. <br />
-                            (Refresh page and it will disappear) <br />
-                            Range from New → Old
-                        </div>
-                    </div>
-                </section>
     
                 <button class="Togglebar" @click="togglebar"><i class="fa-regular fa-eye-slash me-2"></i>Bar</button>
                 <div class="ToolsBar swc" :class="{work: work}">
@@ -104,6 +87,26 @@
                     </div>
                     <textarea v-model="itemsList" class="swc" :class="{work: work}"></textarea>
                 </div>
+                
+                <section class="v">
+                    <div>
+                        <button type="button" class="btn-tl mb-2 dt-right" @click="playSound('assets/voice/tap.wav')" data-title="version"><img alt="" src="assets/images/log.svg"/></button>
+                        <div class="hity container log">
+                            <iframe src="/assets/component/ver.html"></iframe>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-tl dt-right" @click="playSound('assets/voice/tap.wav')" data-title="history"><img alt="" src="assets/images/history.svg"/></button>
+                        <div class="hity container" v-if="historyText != ''">
+                            {{ history }}
+                        </div>
+                        <div class="hity container none" v-else>
+                            There is no record for Spin wheel. <br />
+                            (Refresh page and it will disappear) <br />
+                            Range from New → Old
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
         
@@ -116,9 +119,9 @@
                 <div class="card" style="background-image: url(assets/images/cards/image0.jpg)" >
                     <img alt="" :src="`assets/images/cards/image${imgNum}.jpg`" loading="lazy">
                     <div class="logo">Kama</div>
-                    <div class="level">{{SSRpd}}</div>
+                    <div class="level">{{ SSRpd }}</div>
                     <div class="info">
-                        <h3 class="title">{{answer}}</h3>
+                        <h3 class="title">{{ answer }}</h3>
                         <div class="stargroup">
                             <span class="fas fa-star"></span>
                             <span class="fas fa-star"></span>

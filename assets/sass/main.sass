@@ -144,11 +144,15 @@ body
 
 /* NavBar */
 .navbar
+    @include transition(background .25s)
     position: fixed
     padding: 0
     inset: 0 0 auto
     height: 100px
     z-index: 9999
+    &.fixed
+        @include transition(background .25s)
+        background: #020202
     .navbar-toggler
         display: none
         box-shadow: none

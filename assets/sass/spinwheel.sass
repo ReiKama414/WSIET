@@ -21,13 +21,13 @@
     -o-transition: $value
     transition: $value
 @mixin keyframes($animationName)
-    @keyframes #{$animationName}
-        @content
-    @-o-keyframes #{$animationName}
+    @-webkit-keyframes #{$animationName}
         @content
     @-moz-keyframes #{$animationName}
         @content
-    @-webkit-keyframes #{$animationName}
+    @-o-keyframes #{$animationName}
+        @content
+    @keyframes #{$animationName}
         @content
 @mixin font($fw: 500, $fs: 16px, $lh: 24px)
     font-weight: $fw
@@ -245,6 +245,7 @@ body
         max-width: 400px
         perspective: 2000px
     .card
+        @include transition(transform .25s)
         position: relative
         overflow: hidden
         aspect-ratio: 6/9
@@ -255,9 +256,10 @@ body
         background-color: black
         background-size: cover
         background-repeat: no-repeat
-        background-position: 0 0
+        background-position: center
         box-shadow: -13px -13px 13px -15px var(--color1), 13px 13px 13px -15px var(--color2), 0 0 4px 2px rgba(255,255,255,0.5), 0 35px 25px -15px rgba(0, 0, 0, 0.3)
         &::before, &::after
+            @include transition(all .5s)
             content: ""
             inset: 0
             mix-blend-mode: screen
@@ -368,7 +370,7 @@ body
     position: absolute
     margin: 36px 0 0 36px
     left: 0
-    z-index: 2
+    z-index: 9999
     .btn-tl
         @include d-flex-c
         @include size(42px)
@@ -398,11 +400,14 @@ body
         left: 120%
         background: rgba(0, 0, 0, .85)
         border-radius: 4px
-        z-index: 10002
         &:not(.none)
             justify-content: flex-start
             align-items: flex-start
             text-align: left
+        &.log
+            padding: 0
+            iframe
+                @include size(100%)
     
 
 @media (max-width: 1199.98px)

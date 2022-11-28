@@ -53,11 +53,13 @@ $(function () {
     cardEffect();
     
     $('.cctn').scroll( function() {
-        if ($(this).scrollTop() >= 10) {
+        if ($(this).scrollTop() >= 15) {
             $(this).siblings(".navbar").addClass('fixed');
+            $(this).siblings(".gotop").addClass('show');
         }
         else {
             $(this).siblings(".navbar").removeClass('fixed');
+            $(this).siblings(".gotop").removeClass('show');
         }
     });
 

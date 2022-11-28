@@ -69,6 +69,8 @@
         <section class="footer"></section>
     
         <div id="cursor" class="cursor"></div>
+
+        <button type="button" class="gotop" onclick="topFunction()"></button>
     </div>
 
     <style class="chs"></style>
@@ -81,6 +83,11 @@
                 loading.classList.add("hidden");
             }, 2000);
         });
+
+        function topFunction() {
+            document.getElementsByClassName("cctn")[0].scrollTop = 0;
+        };
+
     </script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/card.js"></script>

@@ -77,10 +77,10 @@
             @include size(calc(var(--csh) * .85))
             margin: calc(var(--csh) * .075)
             min-width: calc(var(--csh) * .85)
-            // opacity: .85
             background: var(--custom-color1)
+            filter: opacity(.85)
             &:hover
-                opacity: 1
+                filter: opacity(1)
             &.img
                 &.m-m
                     background: var(--custom-color3)
